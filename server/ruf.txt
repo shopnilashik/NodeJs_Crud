@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Project RED</title>
+  </head>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <body>
+    <center>
+  <h1 class="text-6xl font-bold underline text-center">
+    Hello world!
+  </h1>
+<button id="loadData" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+  Load Data
+</button>
+<button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+  Button
+</button>
+
+     <div class=" tbl relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div>
+      <table class=" list table-auto border border-slate-500" id="list_id">
+        <thead>
+          <tr>
+            <th class="border border-slate-600">Product Name</th>
+            <th class="border border-slate-600">Details</th>
+            <th class="border border-slate-600">Price</th>
+            <th class="border border-slate-600">Category</th>
+            <th class="border border-slate-600">Image</th>
+            <th colspan="2" class="border border-slate-600 text-center">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody id="output"></tbody>
+      </table>
+      </div>
+    </div>
+ 
+  <div class="w-[500px]">
+    <form  id="form" method="post" enctype="multipart/form-data"10444 action="http://localhost:3000/products/demo">
+        <input type="text" class="w-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name" name="p_name" id="p_name" value="Iphone 11"/></br>
+        <input type="text" class="form_data" placeholder="details" name="p_details" value="128GB" id="p_details"/></br></br>
+        <input type="text" class="form_data" placeholder="price" name="p_price" value="125600" id="p_price"/></br></br>
+        <input type="text" class="form_data" placeholder="catagory" name="p_category" value="1" id="p_category"/></br></br>
+        <input type="file" class="form_data" placeholder="image" name="image" id="img"/></br></br>
+        <input type="submit" value="Save" id="submit"/>
+    </form>
+    </div>
+     </center>
+    <!-- <img src="../server/images/image-1655875251661-690276178"> -->
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+  </body>
+</html>

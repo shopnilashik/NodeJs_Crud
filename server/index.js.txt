@@ -1,0 +1,45 @@
+//Node.js body parsing middleware.Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+const bodyparser = require("body-parser");
+//Parse Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware.
+const cookieparser = require("cookie-parser");
+const express = require("express");
+const app = express();
+const mysql = require("mysql");
+const routes = require("./src/routes/routes");
+
+
+//DB CONNECTION
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "sct",
+  port: 3306,
+});
+con.connect(function (err) {
+  // console.log("Connection running");
+  if (err) {
+    console.log("Error connecting");
+  }
+});
+const port = 8080;
+app.listen(() => {
+  console.log("server running on port", port);
+});
+//SETTING UP ENVIRONMENT
+//The app.use() function is used to mount the specified middleware function(s) at the path which is being specified. It is mostly used to set up middleware for your application.
+//The express.urlencoded() function is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
+//When extended property is set to true, the URL-encoded data will be parsed with the qs library.qs library allows you to create a nested object from your query string.
+//when extended property is set to false, the URL-encoded data will instead be parsed with the querystring library.query-string library does not support creating a nested object from your query string.
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
+app.use(cookieparser());
+
+// MAKING DB ACCESSABLE TO ROUTE
+app.use(function (req, res, next) {
+  req.con = con;
+  next();
+});
+//ROUTES
+app.use("/product", routes);
+module.exports = app;

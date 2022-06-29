@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- <link href="/dist/output.css" rel="stylesheet"> -->
+    <title>Project RED</title>
+  </head>
+ 
+
+  <body>
+    <center>
+  <h1 class="text-6xl font-bold mt-5 text-center">
+    Project #1
+  </h1>
+    <!-- PopUp modal -->
+    <div>
+      <div
+        id="popup-modal-delete"
+        tabindex="-1"
+        class="mt-[200px] ml-[500px] overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+      >
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button
+              id="dclose"
+              type="button"
+              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              data-modal-toggle="popup-modal"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+            <div class="p-6 text-center">
+              <svg
+                class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <h3
+                class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+              >
+                Are you sure you want to delete this product?
+              </h3>
+              <button
+                id="confirmBtn"
+                type="button"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+              >
+                Yes, I'm sure
+              </button>
+              <button
+                id="btnDclose"
+                type="button"
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+              >
+                No, cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- POPUP END -->
+    <div class="mt-6 mb-5">
+<!-- <button id="loadData" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+  Load Data
+</button> -->
+<button id="addProduct" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+  Add Product
+</button>
+</div>
+     <div class=" tbl relative overflow-x-auto shadow-md ">
+      <div>
+      <table class=" list table-auto border border-slate-500" id="list_id">
+        <thead>
+          <tr>
+            <th class="border border-slate-600">Product Name</th>
+            <th class="border border-slate-600">Details</th>
+            <th class="border border-slate-600">Price</th>
+            <th class="border border-slate-600">Category</th>
+            <th class="border border-slate-600">Image</th>
+            <th colspan="2" class="border border-slate-600 text-center">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody id="output"></tbody>
+      </table>
+      </div>
+    </div>
+ 
+
+    <!-- Add product modal  -->
+<!-- Main modal -->
+<div id="modal-container" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-md h-full md:h-auto mt-16">
+      <!-- Modal content -->
+      <div class=" relative bg-white rounded-lg shadow dark:bg-gray-100">
+          <button id="modal-container-closer" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="authentication-modal">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+          </button>
+          <div class="py-6 px-6 lg:px-8">
+
+              <form id="form">
+                <div class="py-6 px-6 lg:px-8 ">
+                  <h3
+                    id="title"
+                    class="mb-4 text-xl font-medium text-gray-900 dark:text-gray-900 font-bold"
+                  >
+                    
+                  </h3>
+  
+                  <div>
+                    <label
+                      for="product Name"
+                      class="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-900"
+                      >Product Name</label
+                    >
+                    <span
+                      id="productNameValidation"
+                      for="product Name validation"
+                      class="block mb-1 text-sm font-medium text-red-500"
+                    ></span>
+                    <input
+                      required
+                      onkeyup="nameValidation();"
+                      autocomplete="off"
+                      type="text"
+                      for="Name"
+                      id="p_name"
+                      name="p_name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-500 dark:placeholder-gray-600 dark:text-gray-700"
+                      placeholder="Enter Product Name"
+                    />
+                  </div>
+                  <div class="flex justify-center">
+                    <div class="mb-3 xl:w-96">
+                      <label
+                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-900"
+                        >Product Details</label
+                      >
+                      <span
+                      id="detailErr"
+                      for="product Name validation"
+                      class="block mb-1 text-sm font-medium text-red-500"
+                    ></span>
+                      <textarea
+                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-50 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 dark:placeholder-gray-600 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        id="p_details"
+                        name="p_details"
+                        rows="3"
+                        required
+                        placeholder="Give your product details"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-900"
+                      >Product Price</label
+                    >
+                    <span
+                    id="priceErr"
+                    for="product Name validation"
+                    class="block mb-1 text-sm font-medium text-red-500"
+                  ></span>
+                    <input
+                      onkeypress="return priceValidation(event)"
+                      oninput="restrict(this)"
+                      type="text"
+                      for="price"
+                      name="p_price"
+                      id="p_price"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-700"
+                      placeholder="Enter Product Price"
+                      required
+                    />
+                  </div>
+  
+                  <div class="grid">
+                    <label
+                      class="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-900"
+                      >Product Category</label
+                    >
+                    <div class="mb-3 ">
+                      <span
+                      id="categoryErr"
+                      for="product Name validation"
+                      class="block mb-1 text-sm font-medium text-red-500"
+                    ></span>
+                      <select
+                        class="block form-select appearance-none w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        aria-label="Default select example"
+                        id="p_category"
+                        name="p_category"
+                        required
+                      >
+                        <option value="" >Select Category</option>
+                        <option value="iphone">iphone</option>
+                        <option value="MacBook">MacBook</option>
+                        <option value="Watch">Watch</option>
+                        <option value="iMac">iMac</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="image_preview"></div>
+                  <!-- IMAGE   -->
+                  <div class="flex justify-center">
+                    <div class="mb-3 w-[400px]">
+                      <label
+                        for="formFileSm"
+                        class="form-label inline-block mb-2 text-gray-700 dark:text-gray-900"
+                        >Select Product Image</label
+                      >
+                      <span
+                      id="imageErr"
+                      for="product Name validation"
+                      class="block mb-1 text-sm font-medium text-red-500"
+                    ></span>
+                      <input
+                        id="image"
+                        name="image"
+                        onChange="upload(event)"
+                        class="form-control block w-full px-2 py-1 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type="file"
+                      />
+                    </div>
+                  </div>
+  
+                  <button
+                 
+                   id="submit" 
+                    type="button"
+                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div> 
+        <!-- Add product modal END  -->
+     </center>
+
+    <script src="script.js"></script>
+
+
+
+  </body>
+</html>
